@@ -1,83 +1,56 @@
-# 🏗 Scaffold-ETH 2
+# 🗳️ CLAWD Vote
 
-<h4 align="center">
-  <a href="https://docs.scaffoldeth.io">Documentation</a> |
-  <a href="https://scaffoldeth.io">Website</a>
-</h4>
+Community governance for $CLAWD. Create proposals and stake tokens to vote on what gets built next.
 
-🧪 An open-source, up-to-date toolkit for building decentralized applications (dapps) on the Ethereum blockchain. It's designed to make it easier for developers to create and deploy smart contracts and build user interfaces that interact with those contracts.
+![CLAWD Vote](packages/nextjs/public/thumbnail.png)
 
-> [!NOTE]
-> 🤖 Scaffold-ETH 2 is AI-ready! It has everything agents need to build on Ethereum. Check `.agents/`, `.claude/`, `.opencode` or `.cursor/` for more info.
+## 🔗 Links
 
-⚙️ Built using NextJS, RainbowKit, Foundry, Wagmi, Viem, and Typescript.
+- **IPFS:** [community.bgipfs.com/ipfs/bafybeieogrr6jvq57neruu4syxa4puvdwnr4cftimyreagwp3b63wlppvy](https://community.bgipfs.com/ipfs/bafybeieogrr6jvq57neruu4syxa4puvdwnr4cftimyreagwp3b63wlppvy)
+- **Contract:** [0xf86D964188115AFc8DBB54d088164f624B916442](https://basescan.org/address/0xf86D964188115AFc8DBB54d088164f624B916442) (Base)
+- **$CLAWD Token:** [0x9f86dB9fc6f7c9408e8Fda3Ff8ce4e78ac7a6b07](https://basescan.org/token/0x9f86dB9fc6f7c9408e8Fda3Ff8ce4e78ac7a6b07)
 
-- ✅ **Contract Hot Reload**: Your frontend auto-adapts to your smart contract as you edit it.
-- 🪝 **[Custom hooks](https://docs.scaffoldeth.io/hooks/)**: Collection of React hooks wrapper around [wagmi](https://wagmi.sh/) to simplify interactions with smart contracts with typescript autocompletion.
-- 🧱 [**Components**](https://docs.scaffoldeth.io/components/): Collection of common web3 components to quickly build your frontend.
-- 🔥 **Burner Wallet & Local Faucet**: Quickly test your application with a burner wallet and local faucet.
-- 🔐 **Integration with Wallet Providers**: Connect to different wallet providers and interact with the Ethereum network.
+## How It Works
 
-![Debug Contracts tab](https://github.com/scaffold-eth/scaffold-eth-2/assets/55535804/b237af0c-5027-4849-a5c1-2e31495cccb1)
+1. **Create a proposal** — burns 50K CLAWD (prevents spam)
+2. **Stake CLAWD to vote** — minimum 1K per vote, refundable
+3. **Unstake anytime** — change your mind, get tokens back
+4. **Admin resolves** — when proposal is addressed, all stakes returned
 
-## Requirements
+Proposals ranked by total stake = community signal for what matters most.
 
-Before you begin, you need to install the following tools:
+## Features
 
-- [Node (>= v20.18.3)](https://nodejs.org/en/download/)
-- Yarn ([v1](https://classic.yarnpkg.com/en/docs/install/) or [v2+](https://yarnpkg.com/getting-started/install))
-- [Git](https://git-scm.com/downloads)
+- Create proposals (burn 50K CLAWD)
+- Stake any amount to vote (min 1K, refundable)
+- Unstake before resolution
+- Admin resolves + auto-returns all stakes
+- Real-time event feed
+- USD price display
 
-## Quickstart
+## Smart Contract
 
-To get started with Scaffold-ETH 2, follow the steps below:
+`CLAWDVote.sol` — 15 tests passing
 
-1. Install dependencies if it was skipped in CLI:
+| Function | Access | Description |
+|----------|--------|-------------|
+| `createProposal(title, desc)` | Anyone | Burns CLAWD, creates proposal |
+| `vote(proposalId, amount)` | Anyone | Stake CLAWD on proposal |
+| `unvote(proposalId)` | Anyone | Withdraw your stake |
+| `resolve(proposalId)` | Owner | Mark resolved, return all stakes |
 
-```
-cd my-dapp-example
-yarn install
-```
+## Developer Quickstart
 
-2. Run a local network in the first terminal:
-
-```
-yarn chain
-```
-
-This command starts a local Ethereum network using Foundry. The network runs on your local machine and can be used for testing and development. You can customize the network configuration in `packages/foundry/foundry.toml`.
-
-3. On a second terminal, deploy the test contract:
-
-```
-yarn deploy
+```bash
+git clone https://github.com/clawdbotatg/clawd-vote.git
+cd clawd-vote && yarn install
+yarn fork --network base && yarn deploy && yarn start
 ```
 
-This command deploys a test smart contract to the local network. The contract is located in `packages/foundry/contracts` and can be modified to suit your needs. The `yarn deploy` command uses the deploy script located in `packages/foundry/script` to deploy the contract to the network. You can also customize the deploy script.
+## Stack
 
-4. On a third terminal, start your NextJS app:
+Scaffold-ETH 2 + Foundry + Next.js + Base + BuidlGuidl IPFS
 
-```
-yarn start
-```
+---
 
-Visit your app on: `http://localhost:3000`. You can interact with your smart contract using the `Debug Contracts` page. You can tweak the app config in `packages/nextjs/scaffold.config.ts`.
-
-Run smart contract test with `yarn foundry:test`
-
-- Edit your smart contracts in `packages/foundry/contracts`
-- Edit your frontend homepage at `packages/nextjs/app/page.tsx`. For guidance on [routing](https://nextjs.org/docs/app/building-your-application/routing/defining-routes) and configuring [pages/layouts](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts) checkout the Next.js documentation.
-- Edit your deployment scripts in `packages/foundry/script`
-
-
-## Documentation
-
-Visit our [docs](https://docs.scaffoldeth.io) to learn how to start building with Scaffold-ETH 2.
-
-To know more about its features, check out our [website](https://scaffoldeth.io).
-
-## Contributing to Scaffold-ETH 2
-
-We welcome contributions to Scaffold-ETH 2!
-
-Please see [CONTRIBUTING.MD](https://github.com/scaffold-eth/scaffold-eth-2/blob/main/CONTRIBUTING.md) for more information and guidelines for contributing to Scaffold-ETH 2.
+Built by [Clawd](https://clawdbotatg.eth.limo) 🤖
